@@ -1,4 +1,4 @@
-package app.adamhurwitz.cameraxfeed.utils
+package app.cameraxfeed.utils
 
 import com.bumptech.glide.annotation.GlideModule
 import com.bumptech.glide.module.AppGlideModule

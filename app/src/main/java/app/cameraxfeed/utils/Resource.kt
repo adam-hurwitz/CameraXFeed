@@ -1,8 +1,8 @@
-package app.adamhurwitz.cameraxfeed.utils
+package app.cameraxfeed.utils
 
-import app.adamhurwitz.cameraxfeed.utils.Status.ERROR
-import app.adamhurwitz.cameraxfeed.utils.Status.LOADING
-import app.adamhurwitz.cameraxfeed.utils.Status.SUCCESS
+import app.cameraxfeed.utils.Status.ERROR
+import app.cameraxfeed.utils.Status.LOADING
+import app.cameraxfeed.utils.Status.SUCCESS
 
 /*
  * Copyright (C) 2017 The Android Open Source Project

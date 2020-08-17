@@ -1,5 +1,18 @@
 <resources>
     <string name="app_name">CameraX Feed</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="camera_alt">Camera</string>
+    <string name="title_camera">Take a photo</string>
+    <string name="feed_alt">Feed</string>
+    <string name="title_feed">Feed</string>
+    <!-- Camera -->
+    <string name="camera_permission_denied">Camera permission denied. 👎☹️</string>
+    <string name="capture_button_alt">Capture</string>
+    <string name="switch_camera_button_alt">Switch camera</string>
+    <string name="save_post_error_message">Error creating feed, please try again. 🙏</string>
+    <!-- Feed -->
+    <string name="post_image_alt">Post image</string>
+    <string name="feed_empty_image_alt">Empty feed image</string>
+    <string name="feed_empty_message">Take a picture to populate the feed! 📸</string>
+    <string name="feed_message">Take a picture to populate the feed! 📸</string>
+    <string name="feed_load_error_message">Error loading feed, please try again. 🙏</string>
 </resources>

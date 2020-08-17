@@ -2,12 +2,14 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/nav_graph"
+    android:id="@+id/nav_feed"
+    android:label="@string/title_feed"
     app:startDestination="@id/feedFragment">
 
     <fragment
         android:id="@+id/feedFragment"
-        android:name="app.cameraxfeed.FeedFragment"
-        android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        android:name="app.cameraxfeed.feed.view.FeedFragment"
+        android:label="@string/title_feed"
+        tools:layout="@layout/fragment_feed" >
+    </fragment>
 </navigation>
