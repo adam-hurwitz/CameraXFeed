@@ -2,7 +2,14 @@
 
 **A feed of images with Android's CameraX library.**
 
-Libraries
+## Take a picture
+![Camera portrait view](https://adam-hurwitz.firebaseapp.com/CameraXFeed/camera-portrait.png)
+![Camera landscape view](https://adam-hurwitz.firebaseapp.com/CameraXFeed/camera-land.png)
+
+## Feed
+![Feed view](https://adam-hurwitz.firebaseapp.com/CameraXFeed/feed.png)
+
+## Libraries
 
 - [CameraX][camerax]
 - [Kotlin Coroutines][coroutines]
