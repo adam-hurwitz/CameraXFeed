@@ -2,18 +2,18 @@ package app.cameraxfeed.viewmodel
 
 import android.util.Log
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asFlow
-import androidx.paging.toLiveData
 import app.cameraxfeed.R.string.feed_load_error_message
 import app.cameraxfeed.R.string.save_post_error_message
 import app.cameraxfeed.camera.state.CameraView
 import app.cameraxfeed.camera.state.CameraViewState.PostCameraViewState
-import app.cameraxfeed.feed.database.FeedDao
+import app.cameraxfeed.feed.database.FeedRepository
 import app.cameraxfeed.feed.state.FeedView
 import app.cameraxfeed.feed.state.FeedViewState.PostFeedViewState
 import app.cameraxfeed.feed.state.Post
 import app.cameraxfeed.utils.Event
-import app.cameraxfeed.utils.PAGE_SIZE
+import app.cameraxfeed.utils.Status.ERROR
+import app.cameraxfeed.utils.Status.LOADING
+import app.cameraxfeed.utils.Status.SUCCESS
 import app.cameraxfeed.utils.onEachEvent
 import com.squareup.inject.assisted.Assisted
 import com.squareup.inject.assisted.AssistedInject
@@ -24,12 +24,11 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.filterNotNull
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
-import kotlinx.coroutines.launch
 
 @ExperimentalCoroutinesApi
 class FeedViewModel @AssistedInject constructor(
     @Assisted private val coroutineScopeProvider: CoroutineScope?,
-    private val dao: FeedDao
+    private val repository: FeedRepository
 ) : ViewModel() {
 
     @AssistedInject.Factory
@@ -67,46 +66,35 @@ class FeedViewModel @AssistedInject constructor(
     }
 
     private fun createPost(post: Post) {
-        // Loading
-        cameraState.value = Event(PostCameraViewState(isLoading = true))
-        try {
-            // Success
-            coroutineScope.launch {
-                dao.insertPost(post)
+        repository.insertPost(post).onEach {
+            when (it.status) {
+                LOADING -> cameraState.value = Event(PostCameraViewState(isLoading = true))
+                SUCCESS -> Log.v(LOG_TAG, "Create post success")
+                ERROR -> cameraState.value = Event(
+                    PostCameraViewState(
+                        isLoading = false,
+                        error = save_post_error_message
+                    )
+                )
             }
-        } catch (error: Exception) {
-            // Error
-            Log.e(LOG_TAG, "loadFeed error: ${error.localizedMessage}")
-            cameraState.value = Event(PostCameraViewState(
-                isLoading = false,
-                error = save_post_error_message
-            ))
-        }
+        }.launchIn(coroutineScope)
     }
 
     private fun loadFeed() {
-        // Loading
-        feedState.value = PostFeedViewState(
-            isLoading = true,
-            feed = null
-        )
-        try {
-            // Success
-            val posts = dao.queryPosts().toLiveData(PAGE_SIZE).asFlow()
-            posts.onEach {
-                feedState.value = PostFeedViewState(
+        repository.queryPosts().onEach {
+            when (it.status) {
+                LOADING -> feedState.value = PostFeedViewState(isLoading = true)
+                SUCCESS -> {
+                    feedState.value = PostFeedViewState(
+                        isLoading = false,
+                        feed = it.data
+                    )
+                }
+                ERROR -> feedState.value = PostFeedViewState(
                     isLoading = false,
-                    feed = it
+                    error = feed_load_error_message
                 )
-            }.launchIn(coroutineScope)
-        } catch (error: Exception) {
-            // Error
-            Log.e(LOG_TAG, "loadFeed error: ${error.localizedMessage}")
-            feedState.value = PostFeedViewState(
-                isLoading = false,
-                feed = null,
-                error = feed_load_error_message
-            )
-        }
+            }
+        }.launchIn(coroutineScope)
     }
 }

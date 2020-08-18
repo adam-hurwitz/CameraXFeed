@@ -31,8 +31,3 @@ data class Resource<out T>(val status: Status, val data: T?, val message: String
         fun <T> error(msg: String, data: T?) = Resource(ERROR, data, msg)
     }
 }
-
-// To-do: Move to it's own file.
-enum class Status {
-    LOADING, SUCCESS, ERROR
-}

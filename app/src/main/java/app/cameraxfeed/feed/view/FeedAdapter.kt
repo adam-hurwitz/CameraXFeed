@@ -12,7 +12,7 @@ import app.cameraxfeed.utils.setProfileImage
 
 val DIFF_UTIL = object : DiffUtil.ItemCallback<Post>() {
     override fun areItemsTheSame(oldItem: Post, newItem: Post) =
-        (oldItem.username + oldItem.imageString) == (newItem.username + newItem.imageString)
+        (oldItem.username + oldItem.postImage) == (newItem.username + newItem.postImage)
 
     override fun areContentsTheSame(oldItem: Post, newItem: Post) = oldItem == newItem
 }
@@ -24,7 +24,7 @@ class FeedAdapter : PagedListAdapter<Post, FeedAdapter.ViewHolder>(DIFF_UTIL) {
         fun bind(post: Post) {
             binding.username.text = post.username
             binding.profileImage.setProfileImage(post.profileImage)
-            binding.postImage.setPostImage(post.imageString)
+            binding.postImage.setPostImage(post.postImage)
         }
     }
 

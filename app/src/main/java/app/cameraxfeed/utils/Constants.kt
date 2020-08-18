@@ -1,7 +1,10 @@
 package app.cameraxfeed.utils
 
+import app.cameraxfeed.R
+
 // Dummy data
-const val USERNAME = "AdamHurwitz"
+const val MOCK_USERNAME = "AdamHurwitz"
+const val MOCK_PROFILE_IMAGE = R.drawable.user_profile_placeholder
 
 // Perimssions
 const val PERMISSIONS_REQUEST_CODE = 10

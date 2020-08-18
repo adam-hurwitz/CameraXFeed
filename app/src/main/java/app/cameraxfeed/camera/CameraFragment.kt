@@ -46,11 +46,12 @@ import app.cameraxfeed.utils.ANIMATION_FAST_MILLIS
 import app.cameraxfeed.utils.ANIMATION_SLOW_MILLIS
 import app.cameraxfeed.utils.DATE_FORMAT
 import app.cameraxfeed.utils.Event
+import app.cameraxfeed.utils.MOCK_PROFILE_IMAGE
+import app.cameraxfeed.utils.MOCK_USERNAME
 import app.cameraxfeed.utils.PERMISSIONS_REQUEST_CODE
 import app.cameraxfeed.utils.PHOTO_EXTENSION
 import app.cameraxfeed.utils.RATIO_16_9_VALUE
 import app.cameraxfeed.utils.RATIO_4_3_VALUE
-import app.cameraxfeed.utils.USERNAME
 import app.cameraxfeed.viewmodel.FeedViewModel
 import app.cameraxfeed.viewmodel.navGraphSavedStateViewModels
 import com.google.android.material.snackbar.Snackbar
@@ -227,10 +228,10 @@ class CameraFragment : Fragment(), CameraView {
                             try {
                                 intent.savePost.value = Event(
                                     Post(
-                                        username = USERNAME,
-                                        profileImage = R.drawable.user_profile_placeholder,
+                                        username = MOCK_USERNAME,
+                                        profileImage = MOCK_PROFILE_IMAGE,
                                         timestamp = getDate(),
-                                        imageString = savedUri.toString()
+                                        postImage = savedUri.toString()
                                     )
                                 )
                             } catch (error: Exception) {
